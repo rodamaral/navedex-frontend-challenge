@@ -25,11 +25,30 @@ export default function Home({ token }) {
     <div>
       <h1>nave.rs</h1>
       <button>Sair</button>
+      <h3>nave.rs</h3>
+      <button>Adicionar Naver</button>
 
       <section>
-        {users.map((item) => (
-          <p key={item.id}>{item.name}</p>
-        ))}
+        {users.map(
+          ({
+            id,
+            name,
+            job_role,
+            admission_date,
+            user_id,
+            project,
+            birthdate,
+            url,
+          }) => (
+            <div key={id}>
+              <img src={`logo192.png`} alt={id} />
+              <p>{name}</p>
+              <p>{job_role}</p>
+              <button>Delete</button>
+              <button>Update</button>
+            </div>
+          )
+        )}
       </section>
     </div>
   );
