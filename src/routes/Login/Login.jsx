@@ -1,37 +1,54 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-export default function Login() {
+export default function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = () => {
-    alert(`${email}: ${password}`);
+  const onChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("https://navedex-api.herokuapp.com/v1/users/login", {
+        password,
+        email,
+      })
+      .then((res) => {
+        setToken(res.data.token);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
     <div>
-      <form action="" onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <fieldset>
           <h1>Nave.rs</h1>
-          <input
-            type="text"
-            id="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <label htmlFor="email">Email</label>
 
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <label htmlFor="password">Senha</label>
+          <label>
+            Email
+            <input type="text" value={email} onChange={onChangeEmail} />
+          </label>
+
+          <label>
+            Senha
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={onChangePassword}
+            />
+          </label>
 
           <button>ENTRAR</button>
         </fieldset>

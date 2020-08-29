@@ -1,16 +1,24 @@
-import React, { Suspense } from "react";
-import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom";
-import Login from "./routes/Login";
+import React, { Suspense, useState } from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
+import Authenticated from "./Authenticated";
+import Unuthenticated from "./Unauthenticated";
 
-const App = () => (
-  <Suspense fallback={<span>Carregando...</span>}>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Redirect to="/login" />
-      </Switch>
-    </BrowserRouter>
-  </Suspense>
-);
+const App = () => {
+  const [token, setToken] = useState(null);
+
+  return (
+    <Suspense fallback={<span>Carregando...</span>}>
+      <BrowserRouter>
+        <Switch>
+          {token == null ? (
+            <Unuthenticated setToken={setToken} />
+          ) : (
+            <Authenticated token={token} />
+          )}
+        </Switch>
+      </BrowserRouter>
+    </Suspense>
+  );
+};
 
 export default App;
