@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
+import axios from "../../services/axios";
+import AuthContext from "../../contexts/AuthContext";
 
-export default function Login({ setToken }) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setToken } = useContext(AuthContext);
 
   const onChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -17,7 +19,7 @@ export default function Login({ setToken }) {
     e.preventDefault();
 
     axios
-      .post("https://navedex-api.herokuapp.com/v1/users/login", {
+      .post("users/login", {
         password,
         email,
       })

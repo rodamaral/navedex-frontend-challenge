@@ -1,6 +1,7 @@
 import React, { Suspense, useState } from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 import Authenticated from "./Authenticated";
+import AuthContext from "./contexts/AuthContext";
 import Unuthenticated from "./Unauthenticated";
 
 const App = () => {
@@ -10,11 +11,9 @@ const App = () => {
     <Suspense fallback={<span>Carregando...</span>}>
       <BrowserRouter>
         <Switch>
-          {token == null ? (
-            <Unuthenticated setToken={setToken} />
-          ) : (
-            <Authenticated token={token} />
-          )}
+          <AuthContext.Provider value={{ token, setToken }}>
+            {token == null ? <Unuthenticated /> : <Authenticated />}
+          </AuthContext.Provider>
         </Switch>
       </BrowserRouter>
     </Suspense>

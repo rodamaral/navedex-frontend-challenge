@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "../../services/axios";
+import Header from "../../components/Header";
 import UsersList from "../../components/UsersList";
+import AuthContext from "../../contexts/AuthContext";
 
-export default function Home({ token }) {
+export default function Home() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { token } = useContext(AuthContext);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -26,13 +29,21 @@ export default function Home({ token }) {
 
   return (
     <div>
-      <h1>nave.rs</h1>
-      <button>Sair</button>
-      <h3>nave.rs</h3>
-      <button>Adicionar Naver</button>
+      <Header />
 
-      <section>
-        {loading ? <div>loading</div> : <UsersList users={users} />}
+      <section
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <h3>nave.rs</h3>
+          <button>Adicionar Naver</button>
+        </div>
+
+        <div>{loading ? <div>loading</div> : <UsersList users={users} />}</div>
       </section>
     </div>
   );

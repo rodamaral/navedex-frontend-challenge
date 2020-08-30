@@ -1,7 +1,5 @@
 import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import User from "./User";
 
 export default function Home({ users }) {
   return (
@@ -22,30 +20,7 @@ export default function Home({ users }) {
           birthdate,
           url,
         }) => (
-          <div
-            key={id}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "start",
-            }}
-          >
-            <img src={`logo192.png`} alt={id} />
-
-            <strong>{name}</strong>
-
-            <span>{job_role}</span>
-
-            <span>
-              <IconButton aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-
-              <IconButton aria-label="delete">
-                <EditIcon />
-              </IconButton>
-            </span>
-          </div>
+          <User id={id} name={name} jobRole={job_role} />
         )
       )}
     </div>

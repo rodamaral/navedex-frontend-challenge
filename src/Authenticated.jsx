@@ -2,11 +2,11 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Home from "./routes/Home";
 
-const Authenticated = ({ token }) => (
+const Authenticated = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/home">
-        <Home token={token} />
+        <Home />
       </Route>
       <Redirect to="/home" />
     </Switch>
