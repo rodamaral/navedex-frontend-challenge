@@ -1,8 +1,8 @@
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import React, { useContext, useState } from "react";
-import axios from "../../services/axios";
 import AuthContext from "../../contexts/AuthContext";
+import axios from "../../services/axios";
 import DeleteDialog from "./DeleteDialog";
 
 export default function DeleteUser({ id, setLoading, getUsers }) {

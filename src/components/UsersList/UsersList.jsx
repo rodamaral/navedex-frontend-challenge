@@ -9,26 +9,28 @@ export default function Home({ users, getUsers }) {
         flexDirection: "row",
       }}
     >
-      {users.map(
-        ({
-          id,
-          name,
-          job_role,
-          admission_date,
-          user_id,
-          project,
-          birthdate,
-          url,
-        }) => (
-          <User
-            key={id}
-            id={id}
-            name={name}
-            jobRole={job_role}
-            getUsers={getUsers}
-          />
-        )
-      )}
+      {users.map((
+        //     {
+        //   id,
+        //   name,
+        //   job_role,
+        //   admission_date,
+        //   user_id,
+        //   project,
+        //   birthdate,
+        //   url,
+        // }
+        user
+      ) => (
+        <User
+          key={user.id}
+          user={user}
+          id={user.id}
+          name={user.name}
+          jobRole={user.job_role}
+          getUsers={getUsers}
+        />
+      ))}
     </div>
   );
 }
