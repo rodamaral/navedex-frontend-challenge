@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../services/axios";
+import UsersList from "../../components/UsersList";
 
 export default function Home({ token }) {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await axios.get(
-          "https://navedex-api.herokuapp.com/v1/navers",
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
+        setLoading(true);
+        const res = await axios.get("navers", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setUsers(res.data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -29,26 +32,7 @@ export default function Home({ token }) {
       <button>Adicionar Naver</button>
 
       <section>
-        {users.map(
-          ({
-            id,
-            name,
-            job_role,
-            admission_date,
-            user_id,
-            project,
-            birthdate,
-            url,
-          }) => (
-            <div key={id}>
-              <img src={`logo192.png`} alt={id} />
-              <p>{name}</p>
-              <p>{job_role}</p>
-              <button>Delete</button>
-              <button>Update</button>
-            </div>
-          )
-        )}
+        {loading ? <div>loading</div> : <UsersList users={users} />}
       </section>
     </div>
   );
