@@ -1,7 +1,7 @@
 import React from "react";
 import User from "./User";
 
-export default function Home({ users }) {
+export default function Home({ users, getUsers }) {
   return (
     <div
       style={{
@@ -20,7 +20,13 @@ export default function Home({ users }) {
           birthdate,
           url,
         }) => (
-          <User id={id} name={name} jobRole={job_role} />
+          <User
+            key={id}
+            id={id}
+            name={name}
+            jobRole={job_role}
+            getUsers={getUsers}
+          />
         )
       )}
     </div>
