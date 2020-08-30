@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
+import Logo from '../Logo'
 
 export default function Header() {
     return (
@@ -7,10 +8,10 @@ export default function Header() {
             style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                background: 'orange',
+                background: 'white',
             }}
         >
-            <h1>nave.rs</h1>
+            <Logo />
 
             <Button color="primary" size="small">
                 Sair

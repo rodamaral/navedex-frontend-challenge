@@ -39,7 +39,8 @@ export default function Home() {
                 }}
             >
                 <div>
-                    <h3>nave.rs</h3>
+                    <h3>Navers</h3>
+
                     <button>Adicionar Naver</button>
                 </div>
 

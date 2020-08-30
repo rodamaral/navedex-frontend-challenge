@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import axios from '../../services/axios'
 import AuthContext from '../../contexts/AuthContext'
+import Logo from '../../components/Logo'
 
 export default function Login() {
     const [email, setEmail] = useState('')
@@ -34,8 +35,14 @@ export default function Login() {
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <fieldset>
-                    <h1>Nave.rs</h1>
+                <fieldset
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Logo />
 
                     <label>
                         Email
