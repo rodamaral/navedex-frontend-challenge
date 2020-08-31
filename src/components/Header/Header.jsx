@@ -1,8 +1,15 @@
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
+import AuthContext from '../../contexts/AuthContext'
 import Button from '../Button'
 import Logo from '../Logo'
-import { useHistory } from 'react-router-dom'
-import AuthContext from '../../contexts/AuthContext'
+
+const HeaderBase = styled.header`
+    display: flex;
+    justify-content: space-between;
+    background: white;
+`
 
 export default function Header() {
     const history = useHistory()
@@ -14,16 +21,10 @@ export default function Header() {
     }
 
     return (
-        <header
-            style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                background: 'white',
-            }}
-        >
+        <HeaderBase>
             <Logo />
 
             <Button onClick={onClick}>Sair</Button>
-        </header>
+        </HeaderBase>
     )
 }

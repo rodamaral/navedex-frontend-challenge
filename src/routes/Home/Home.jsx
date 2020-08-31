@@ -1,8 +1,27 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react'
+import styled from 'styled-components'
 import axios from '../../services/axios'
 import Header from '../../components/Header'
 import UsersList from '../../components/UsersList'
 import AuthContext from '../../contexts/AuthContext'
+import Button from '../../components/Button'
+
+const Page = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    max-width: 1366px;
+    margin: 0 auto;
+`
+
+const Section = styled.section`
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    background: white;
+    width: 100%;
+    margin: 20px;
+`
 
 export default function Home() {
     const [users, setUsers] = useState([])
@@ -28,7 +47,7 @@ export default function Home() {
     }, [getUsers])
 
     return (
-        <div>
+        <Page>
             <Header />
 
             <section
@@ -38,16 +57,16 @@ export default function Home() {
                     alignItems: 'center',
                 }}
             >
-                <div>
-                    <h3>Navers</h3>
+                <Section>
+                    <h4>Navers</h4>
 
-                    <button>Adicionar Naver</button>
-                </div>
+                    <Button primary>Adicionar Naver</Button>
+                </Section>
 
                 <div>
                     {loading ? <div>loading</div> : <UsersList users={users} getUsers={getUsers} />}
                 </div>
             </section>
-        </div>
+        </Page>
     )
 }
