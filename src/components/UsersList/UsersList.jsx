@@ -27,7 +27,7 @@ export default function Home({ users, getUsers }) {
                     user={user}
                     id={user.id}
                     name={user.name}
-                    jobRole={user.job_role}
+                    job_role={user.job_role}
                     getUsers={getUsers}
                 />
             ))}

@@ -1,30 +1,32 @@
-import Dialog from '@material-ui/core/Dialog'
+import { Box, Button } from '@material-ui/core'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { Button, Box } from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
+import Modal from 'react-modal'
 import '../../hooks/useInitialValue'
-import useInitialValue from '../../hooks/useInitialValue'
+// import useInitialValue from '../../hooks/useInitialValue'
 
-// nome, cargo, idade, tempo de empresa, projetos que participou, URL foto avatar
-export default function Edit({ user, onClose, open, onSave }) {
-    //   const [name, setName] = useState("");
-    //   const [jobRole, setJobRole] = useState("");
-    //   const [birthdate, setBirthdate] = useState("");
-    //   const [admissionDate, setAdmissionDate] = useState("");
-    //   const [project, setProject] = useState("");
-    //   const [url, setUrl] = useState("");
+export default function Edit({ user, setUser, onClose, open, onSave }) {
+    // const [name, setName] = useState(user.name)
+    // const [job_role, setjob_role] = useState(user.job_role)
+    // const [birthdate, setBirthdate] = useState(user.birthdate)
+    // const [admission_date, setadmission_date] = useState(user.admission_date)
+    // const [project, setProject] = useState(user.project)
+    // const [url, setUrl] = useState(user.url)
 
-    const [name, setName] = useInitialValue(user.name)
-    const [jobRole, setJobRole] = useInitialValue(user.jobRole)
-    const [birthdate, setBirthdate] = useInitialValue(user.birthdate)
-    const [admissionDate, setAdmissionDate] = useInitialValue(user.admission_date)
-    const [project, setProject] = useInitialValue(user.project)
-    const [url, setUrl] = useInitialValue(user.url)
+    const onChange = (event) => {
+        const { name, value } = event.target
+        setUser((user) => ({ ...user, [name]: value }))
+    }
 
     return (
-        <Dialog aria-labelledby="excluir-naver-dialog" open={open}>
+        <Modal
+            isOpen={open}
+            contentLabel="Minimal Modal Example"
+            appElement={document.getElementById('root')}
+            onRequestClose={onClose}
+        >
             <DialogTitle id="simple-dialog-title">Editar Naver</DialogTitle>
 
             <form>
@@ -32,43 +34,49 @@ export default function Edit({ user, onClose, open, onSave }) {
                     <TextField
                         label="Nome"
                         type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={user.name}
+                        name="name"
+                        onChange={onChange}
                     />
 
                     <TextField
                         label="Cargo"
                         type="text"
-                        value={jobRole}
-                        onChange={(e) => setJobRole(e.target.value)}
+                        value={user.job_role}
+                        name="job_role"
+                        onChange={onChange}
                     />
 
                     <TextField
                         label="Idade"
                         type="text"
-                        value={birthdate}
-                        onChange={(e) => setBirthdate(e.target.value)}
+                        value={user.birthdate}
+                        name="birthdate"
+                        onChange={onChange}
                     />
 
                     <TextField
                         label="Tempo de empresa"
                         type="text"
-                        value={admissionDate}
-                        onChange={(e) => setAdmissionDate(e.target.value)}
+                        value={user.admission_date}
+                        name="admission_date"
+                        onChange={onChange}
                     />
 
                     <TextField
                         label="Projetos que participou"
                         type="text"
-                        value={project}
-                        onChange={(e) => setProject(e.target.value)}
+                        value={user.project}
+                        name="project"
+                        onChange={onChange}
                     />
 
                     <TextField
                         label="URL da foto do Naver"
                         type="url"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        value={user.url}
+                        name="url"
+                        onChange={onChange}
                     />
                 </Box>
 
@@ -76,7 +84,7 @@ export default function Edit({ user, onClose, open, onSave }) {
                     <Button onClick={onSave}>Salvar</Button>
                 </Box>
             </form>
-        </Dialog>
+        </Modal>
     )
 }
 

@@ -13,7 +13,7 @@ export default function DeleteUser({ id, setLoading, getUsers }) {
         setOpen(true)
     }
 
-    const handleClose = () => {
+    const onClose = () => {
         setOpen(false)
     }
 
@@ -39,7 +39,7 @@ export default function DeleteUser({ id, setLoading, getUsers }) {
                 <DeleteIcon />
             </IconButton>
 
-            <DeleteDialog open={open} onClose={handleClose} onDelete={onClick} />
+            <DeleteDialog open={open} onClose={onClose} onDelete={onClick} />
         </>
     )
 }

@@ -4,7 +4,7 @@ import DeleteUser from './DeleteUser'
 import EditUser from './EditUser'
 
 // FIXME: image
-export default function User({ user, id, name, jobRole, getUsers }) {
+export default function User({ user, id, name, job_role, getUsers }) {
     const [loading, setLoading] = useState(false)
 
     return (
@@ -22,7 +22,7 @@ export default function User({ user, id, name, jobRole, getUsers }) {
 
             <strong>{name}</strong>
 
-            <span>{jobRole}</span>
+            <span>{job_role}</span>
 
             <span>
                 <DeleteUser id={id} setLoading={setLoading} getUsers={getUsers} />
