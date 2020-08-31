@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react'
-import axios from '../../services/axios'
-import AuthContext from '../../contexts/AuthContext'
-import Logo from '../../components/Logo'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import Button from '../../components/Button'
+import Label from '../../components/Label'
+import Logo from '../../components/Logo'
+import AuthContext from '../../contexts/AuthContext'
+import axios from '../../services/axios'
 
 const Container = styled.div`
     display: flex;
@@ -23,32 +24,6 @@ const FieldSet = styled.fieldset`
     margin: 0 auto;
     border: 1px solid #212121;
     box-sizing: border-box;
-`
-
-const Label = styled.label`
-    display: flex;
-    flex-direction: column;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 18px;
-    display: flex;
-    color: #212121;
-
-    input {
-        border: 1px solid black;
-        background: transparent;
-        font-size: 16px;
-        line-height: 24px;
-        color: #333;
-    }
-
-    input::placeholder {
-        font-size: 16px;
-        line-height: 24px;
-        color: #9e9e9e;
-    }
 `
 
 export default function Login() {
@@ -88,26 +63,20 @@ export default function Login() {
                         <Logo />
                     </div>
 
-                    <Label>
-                        E-mail
-                        <input
-                            placeholder="E-mail"
-                            type="text"
-                            value={email}
-                            onChange={onChangeEmail}
-                        />
-                    </Label>
+                    <Label
+                        value={email}
+                        label="E-mail"
+                        placeholder="E-mail"
+                        onChange={onChangeEmail}
+                    />
 
-                    <Label>
-                        Senha
-                        <input
-                            placeholder="Senha"
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={onChangePassword}
-                        />
-                    </Label>
+                    <Label
+                        value={password}
+                        label="Senha"
+                        placeholder="Senha"
+                        type="password"
+                        onChange={onChangePassword}
+                    />
 
                     <Button primary>ENTRAR</Button>
                 </FieldSet>

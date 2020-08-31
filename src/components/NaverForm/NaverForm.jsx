@@ -1,10 +1,26 @@
-import { Box, Button } from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
+import Button from '../../components/Button'
+import Label from '../../components/Label'
 import '../../hooks/useInitialValue'
 
-export default function NaverForm({ user, setUser, onSave }) {
+const FlexColumn = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    padding: 10px;
+`
+
+const Dual = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+`
+
+export default function NaverForm({ user, disabled, setUser, onSave }) {
     const onChange = (event) => {
         const { name, value } = event.target
         setUser((user) => ({ ...user, [name]: value }))
@@ -12,59 +28,60 @@ export default function NaverForm({ user, setUser, onSave }) {
 
     return (
         <form>
-            <Box>
-                <TextField
-                    label="Nome"
-                    type="text"
-                    value={user.name}
-                    name="name"
-                    onChange={onChange}
-                />
+            <fieldset disabled={disabled}>
+                <FlexColumn>
+                    <Dual>
+                        <Label label="Nome" value={user.name} name="name" onChange={onChange} />
 
-                <TextField
-                    label="Cargo"
-                    type="text"
-                    value={user.job_role}
-                    name="job_role"
-                    onChange={onChange}
-                />
+                        <Label
+                            label="Cargo"
+                            value={user.job_role}
+                            name="job_role"
+                            onChange={onChange}
+                        />
+                    </Dual>
 
-                <TextField
-                    label="Idade"
-                    type="text"
-                    value={user.birthdate}
-                    name="birthdate"
-                    onChange={onChange}
-                />
+                    <Dual>
+                        <Label
+                            label="Idade"
+                            type="text"
+                            value={user.birthdate}
+                            name="birthdate"
+                            onChange={onChange}
+                        />
 
-                <TextField
-                    label="Tempo de empresa"
-                    type="text"
-                    value={user.admission_date}
-                    name="admission_date"
-                    onChange={onChange}
-                />
+                        <Label
+                            label="Tempo de empresa"
+                            value={user.admission_date}
+                            name="admission_date"
+                            onChange={onChange}
+                        />
+                    </Dual>
 
-                <TextField
-                    label="Projetos que participou"
-                    type="text"
-                    value={user.project}
-                    name="project"
-                    onChange={onChange}
-                />
+                    <Dual>
+                        <Label
+                            label="Projetos que participou"
+                            value={user.project}
+                            name="project"
+                            onChange={onChange}
+                        />
 
-                <TextField
-                    label="URL da foto do Naver"
-                    type="url"
-                    value={user.url}
-                    name="url"
-                    onChange={onChange}
-                />
-            </Box>
+                        <Label
+                            label="URL da foto do Naver"
+                            type="url"
+                            value={user.url}
+                            name="url"
+                            onChange={onChange}
+                        />
+                    </Dual>
+                </FlexColumn>
 
-            <Box>
-                <Button onClick={onSave}>Salvar</Button>
-            </Box>
+                <div style={{ float: 'right', marginRight: 10 }}>
+                    <Button onClick={onSave} primary>
+                        Salvar
+                    </Button>
+                </div>
+            </fieldset>
         </form>
     )
 }
@@ -80,6 +97,7 @@ NaverForm.propTypes = {
         birthdate: PropTypes.string,
         url: PropTypes.string,
     }),
+    disabled: PropTypes.bool,
     setUser: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
 }

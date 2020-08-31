@@ -9,6 +9,11 @@ const Button = styled.button`
     padding: 0.25em 2em;
     cursor: pointer;
 
+    &:disabled {
+        opacity: 0.4;
+        filter: alpha(opacity=40);
+    }
+
     ${(props) =>
         props.primary &&
         css`

@@ -12,18 +12,17 @@ const Page = styled.div`
     max-width: 1366px;
     margin: 0 auto;
 `
+const Section = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
 const Authenticated = () => (
     <Page>
         <Header />
 
-        <section
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
+        <Section>
             <BrowserRouter>
                 <Switch>
                     <Route path="/home">
@@ -35,7 +34,7 @@ const Authenticated = () => (
                     <Redirect to="/home" />
                 </Switch>
             </BrowserRouter>
-        </section>
+        </Section>
     </Page>
 )
 

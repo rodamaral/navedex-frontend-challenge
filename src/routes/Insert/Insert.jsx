@@ -1,9 +1,13 @@
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import React, { useContext, useState } from 'react'
 import NaverForm from '../../components/NaverForm'
 import AuthContext from '../../contexts/AuthContext'
 import axios from '../../services/axios'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
-export default function EditUser({ setLoading = () => {}, getUsers = () => {} }) {
+export default function Insert() {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
     const [user, setUser] = useState({
         job_role: '',
         admission_date: '',
@@ -14,11 +18,12 @@ export default function EditUser({ setLoading = () => {}, getUsers = () => {} })
     })
     const { token } = useContext(AuthContext)
 
-    const onClick = async () => {
+    const onClick = async (event) => {
+        event.preventDefault()
         setLoading(true)
 
         try {
-            await axios.post(
+            const res = await axios.post(
                 `navers`,
                 {
                     job_role: user.job_role,
@@ -32,18 +37,24 @@ export default function EditUser({ setLoading = () => {}, getUsers = () => {} })
                     headers: { Authorization: `Bearer ${token}` },
                 }
             )
-        } catch (error) {
-            console.error(error)
+            setError(null)
+        } catch (err) {
+            console.error(err)
+            setError(err)
         } finally {
             setLoading(false)
-            getUsers()
         }
     }
 
     return (
-        <>
-            CRIAR:
-            <NaverForm user={user} setUser={setUser} onSave={onClick} />
-        </>
+        <div>
+            {loading && <LinearProgress />}
+
+            <h2>
+                <ArrowBackIosIcon /> Adicionar Naver
+            </h2>
+
+            <NaverForm user={user} disabled={loading} setUser={setUser} onSave={onClick} />
+        </div>
     )
 }
