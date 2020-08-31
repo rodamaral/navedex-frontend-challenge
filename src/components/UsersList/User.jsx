@@ -4,7 +4,7 @@ import DeleteUser from './DeleteUser'
 import EditUser from './EditUser'
 
 // FIXME: image
-export default function User({ user, id, name, job_role, getUsers }) {
+export default function User({ user, getUsers }) {
     const [loading, setLoading] = useState(false)
 
     return (
@@ -18,16 +18,16 @@ export default function User({ user, id, name, job_role, getUsers }) {
         >
             <div style={{ minWidth: '100%' }}>{loading && <LinearProgress />}</div>
 
-            <img src={`logo192.png`} alt={id} />
+            <img style={{ maxWidth: 200 }} src={user.url} alt="Imagem do usuário" />
 
-            <strong>{name}</strong>
+            <strong>{user.name}</strong>
 
-            <span>{job_role}</span>
+            <span>{user.job_role}</span>
 
             <span>
-                <DeleteUser id={id} setLoading={setLoading} getUsers={getUsers} />
+                <DeleteUser id={user.id} setLoading={setLoading} getUsers={getUsers} />
 
-                <EditUser id={id} user={user} setLoading={setLoading} getUsers={getUsers} />
+                <EditUser id={user.id} user={user} setLoading={setLoading} getUsers={getUsers} />
             </span>
         </div>
     )

@@ -5,9 +5,16 @@ import axios from '../../services/axios'
 import AuthContext from '../../contexts/AuthContext'
 import EditDialog from './EditDialog'
 
-export default function EditUser({ user: userProps, id, setLoading, getUsers }) {
+export default function EditUser({ setLoading, getUsers }) {
     const [open, setOpen] = useState(false)
-    const [user, setUser] = useState(userProps)
+    const [user, setUser] = useState({
+        job_role: '',
+        admission_date: '',
+        birthdate: '',
+        name: '',
+        project: '',
+        url: '',
+    })
     const { token } = useContext(AuthContext)
 
     const handleClickOpen = () => {
@@ -22,8 +29,8 @@ export default function EditUser({ user: userProps, id, setLoading, getUsers }) 
         setLoading(true)
 
         try {
-            await axios.put(
-                `navers/${id}`,
+            await axios.post(
+                `navers`,
                 {
                     job_role: user.job_role,
                     admission_date: user.admission_date,

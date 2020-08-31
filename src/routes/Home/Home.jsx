@@ -1,18 +1,10 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import axios from '../../services/axios'
-import Header from '../../components/Header'
+import Button from '../../components/Button'
 import UsersList from '../../components/UsersList'
 import AuthContext from '../../contexts/AuthContext'
-import Button from '../../components/Button'
-
-const Page = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    max-width: 1366px;
-    margin: 0 auto;
-`
+import axios from '../../services/axios'
 
 const Section = styled.section`
     display: flex;
@@ -27,6 +19,7 @@ export default function Home() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
     const { token } = useContext(AuthContext)
+    const history = useHistory()
 
     const getUsers = useCallback(async () => {
         try {
@@ -46,27 +39,23 @@ export default function Home() {
         getUsers()
     }, [getUsers])
 
+    const onClick = () => {
+        history.push('/insert')
+    }
+
     return (
-        <Page>
-            <Header />
+        <>
+            <Section>
+                <h4>Navers</h4>
 
-            <section
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                <Section>
-                    <h4>Navers</h4>
+                <Button onClick={onClick} primary>
+                    Adicionar Naver
+                </Button>
+            </Section>
 
-                    <Button primary>Adicionar Naver</Button>
-                </Section>
-
-                <div>
-                    {loading ? <div>loading</div> : <UsersList users={users} getUsers={getUsers} />}
-                </div>
-            </section>
-        </Page>
+            <div>
+                {loading ? <div>loading</div> : <UsersList users={users} getUsers={getUsers} />}
+            </div>
+        </>
     )
 }

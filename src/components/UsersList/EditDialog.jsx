@@ -2,19 +2,11 @@ import { Box, Button } from '@material-ui/core'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import Modal from 'react-modal'
 import '../../hooks/useInitialValue'
-// import useInitialValue from '../../hooks/useInitialValue'
 
 export default function Edit({ user, setUser, onClose, open, onSave }) {
-    // const [name, setName] = useState(user.name)
-    // const [job_role, setjob_role] = useState(user.job_role)
-    // const [birthdate, setBirthdate] = useState(user.birthdate)
-    // const [admission_date, setadmission_date] = useState(user.admission_date)
-    // const [project, setProject] = useState(user.project)
-    // const [url, setUrl] = useState(user.url)
-
     const onChange = (event) => {
         const { name, value } = event.target
         setUser((user) => ({ ...user, [name]: value }))
