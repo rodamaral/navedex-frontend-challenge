@@ -48,7 +48,9 @@ export default function Login() {
                 email,
             })
             .then((res) => {
-                setToken(res.data.token)
+                const { token } = res.data
+                setToken(token)
+                localStorage.setItem('token', token)
             })
             .catch((error) => {
                 console.error(error)

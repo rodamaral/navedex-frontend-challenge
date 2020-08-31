@@ -17,6 +17,7 @@ export default function Header() {
 
     const onClick = () => {
         setToken(null)
+        localStorage.removeItem('token')
         history.push('/login')
     }
 

@@ -5,7 +5,7 @@ import AuthContext from './contexts/AuthContext'
 import Unuthenticated from './Unauthenticated'
 
 const App = () => {
-    const [token, setToken] = useState(null)
+    const [token, setToken] = useState(localStorage.getItem('token'))
 
     return (
         <Suspense fallback={<span>Carregando...</span>}>
