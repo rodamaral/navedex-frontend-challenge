@@ -2,33 +2,59 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import React, { useState } from 'react'
 import DeleteUser from './DeleteUser'
 import EditUser from './EditUser'
+import styled, { css } from 'styled-components'
+
+const Card = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    margin: 10px;
+`
+
+const Text = styled.span`
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #212121;
+
+    ${(props) =>
+        props.strong &&
+        css`
+            font-weight: 600;
+            line-height: 18px;
+        `};
+`
 
 // FIXME: image
-export default function User({ user, getUsers }) {
+export default function User({ user, getUsers, onSelected }) {
     const [loading, setLoading] = useState(false)
 
+    const onClick = () => {
+        onSelected(user)
+    }
+
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'start',
-                border: '1px solid blue',
-            }}
-        >
-            <div style={{ minWidth: '100%' }}>{loading && <LinearProgress />}</div>
+        <Card>
+            {loading && <LinearProgress />}
 
-            <img style={{ maxWidth: 200 }} src={user.url} alt="Imagem do usuário" />
+            <img
+                src={user.url}
+                onClick={onClick}
+                alt="Imagem do usuário"
+                style={{ width: 200, height: 200, objectFit: 'contain', objectPosition: 'left' }}
+            />
 
-            <strong>{user.name}</strong>
+            <Text strong>{user.name}</Text>
 
-            <span>{user.job_role}</span>
+            <Text>{user.job_role}</Text>
 
             <span>
                 <DeleteUser id={user.id} setLoading={setLoading} getUsers={getUsers} />
 
                 <EditUser id={user.id} user={user} setLoading={setLoading} getUsers={getUsers} />
             </span>
-        </div>
+        </Card>
     )
 }
