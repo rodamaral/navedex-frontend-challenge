@@ -1,8 +1,18 @@
-import React from 'react'
-import Button from '@material-ui/core/Button'
+import React, { useContext } from 'react'
+import Button from '../Button'
 import Logo from '../Logo'
+import { useHistory } from 'react-router-dom'
+import AuthContext from '../../contexts/AuthContext'
 
 export default function Header() {
+    const history = useHistory()
+    const { setToken } = useContext(AuthContext)
+
+    const onClick = () => {
+        setToken(null)
+        history.push('/login')
+    }
+
     return (
         <header
             style={{
@@ -13,9 +23,7 @@ export default function Header() {
         >
             <Logo />
 
-            <Button color="primary" size="small">
-                Sair
-            </Button>
+            <Button onClick={onClick}>Sair</Button>
         </header>
     )
 }
