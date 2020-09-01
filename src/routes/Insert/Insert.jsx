@@ -7,7 +7,6 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 
 export default function Insert() {
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
     const [user, setUser] = useState({
         job_role: '',
         admission_date: '',
@@ -23,7 +22,7 @@ export default function Insert() {
         setLoading(true)
 
         try {
-            const res = await axios.post(
+            await axios.post(
                 `navers`,
                 {
                     job_role: user.job_role,
@@ -37,10 +36,8 @@ export default function Insert() {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             )
-            setError(null)
         } catch (err) {
             console.error(err)
-            setError(err)
         } finally {
             setLoading(false)
         }

@@ -8,20 +8,17 @@ import { Redirect, useHistory } from 'react-router-dom'
 
 export default function Update({ user, setUser }) {
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
     const [formUser, setFormUser] = useState(user)
     const { token } = useContext(AuthContext)
     const history = useHistory()
-    const id = formUser == null ? 'nooo' : formUser.id
 
     const onClick = async (event) => {
         event.preventDefault()
         setLoading(true)
 
         try {
-            console.log('BEFORE user :>> ', id, formUser)
-            const res = await axios.put(
-                `navers/${id}`,
+            await axios.put(
+                `navers/${user.id}`,
                 {
                     job_role: formUser.job_role,
                     admission_date: formUser.admission_date,
@@ -34,7 +31,6 @@ export default function Update({ user, setUser }) {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             )
-            console.log('AFTER user :>> ', res)
             setLoading(false)
             onReturn()
         } catch (error) {

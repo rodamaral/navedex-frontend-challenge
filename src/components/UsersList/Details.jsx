@@ -1,4 +1,5 @@
 import IconButton from '@material-ui/core/IconButton'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import EditIcon from '@material-ui/icons/Edit'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
@@ -65,6 +66,8 @@ export default function Details({ user, getUsers }) {
             <Img src={user.url} alt="Imagem do usuário" />
 
             <Column>
+                {loading && <LinearProgress />}
+
                 <Title>{user.name}</Title>
                 <Text marginBottom={10}>{user.job_role}</Text>
 
