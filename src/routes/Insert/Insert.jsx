@@ -5,8 +5,10 @@ import AuthContext from '../../contexts/AuthContext'
 import axios from '../../services/axios'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { useHistory } from 'react-router-dom'
+import NaverConfirmation from '../../components/NaverConfirmation'
 
 export default function Insert() {
+    const [confirmationOpen, setConfirmationOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState({
         job_role: '',
@@ -18,6 +20,11 @@ export default function Insert() {
     })
     const { token } = useContext(AuthContext)
     const history = useHistory()
+
+    const onCloseConfirmation = () => {
+        setConfirmationOpen(false)
+        onReturn()
+    }
 
     const onClick = async (event) => {
         event.preventDefault()
@@ -38,6 +45,7 @@ export default function Insert() {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             )
+            setConfirmationOpen(true)
         } catch (err) {
             console.error(err)
         } finally {
@@ -59,6 +67,13 @@ export default function Insert() {
             </h2>
 
             <NaverForm user={user} disabled={loading} setUser={setUser} onSave={onClick} />
+
+            <NaverConfirmation
+                open={confirmationOpen}
+                onClose={onCloseConfirmation}
+                title="Naver criado"
+                text="Naver criado com sucesso!"
+            />
         </div>
     )
 }

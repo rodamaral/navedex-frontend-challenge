@@ -7,6 +7,7 @@ import DeleteDialog from './DeleteDialog'
 
 export default function DeleteUser({ id, setLoading, getUsers, setUser }) {
     const [open, setOpen] = useState(false)
+    const [confirmationOpen, setConfirmationOpen] = useState(false)
     const { token } = useContext(AuthContext)
 
     const handleClickOpen = () => {
@@ -17,6 +18,14 @@ export default function DeleteUser({ id, setLoading, getUsers, setUser }) {
         setOpen(false)
     }
 
+    const onCloseConfirmation = () => {
+        setConfirmationOpen(false)
+        setOpen(false)
+        setConfirmationOpen(true)
+        setUser(null)
+        getUsers()
+    }
+
     const onClick = async () => {
         setLoading(true)
 
@@ -25,9 +34,7 @@ export default function DeleteUser({ id, setLoading, getUsers, setUser }) {
                 headers: { Authorization: `Bearer ${token}` },
             })
             setLoading(false)
-            setOpen(false)
-            setUser(null)
-            getUsers()
+            setConfirmationOpen(true)
         } catch (error) {
             setLoading(false)
             console.error(error)
@@ -40,7 +47,13 @@ export default function DeleteUser({ id, setLoading, getUsers, setUser }) {
                 <DeleteIcon />
             </IconButton>
 
-            <DeleteDialog open={open} onClose={onClose} onDelete={onClick} />
+            <DeleteDialog
+                open={open}
+                onClose={onClose}
+                onDelete={onClick}
+                confirmationOpen={confirmationOpen}
+                onCloseConfirmation={onCloseConfirmation}
+            />
         </>
     )
 }

@@ -5,12 +5,19 @@ import AuthContext from '../../contexts/AuthContext'
 import axios from '../../services/axios'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { Redirect, useHistory } from 'react-router-dom'
+import NaverConfirmation from '../../components/NaverConfirmation'
 
 export default function Update({ user, setUser }) {
+    const [confirmationOpen, setConfirmationOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [formUser, setFormUser] = useState(user)
     const { token } = useContext(AuthContext)
     const history = useHistory()
+
+    const onCloseConfirmation = () => {
+        setConfirmationOpen(false)
+        onReturn()
+    }
 
     const onClick = async (event) => {
         event.preventDefault()
@@ -32,7 +39,7 @@ export default function Update({ user, setUser }) {
                 }
             )
             setLoading(false)
-            onReturn()
+            setConfirmationOpen(true)
         } catch (error) {
             setLoading(false)
             console.error(error)
@@ -57,6 +64,13 @@ export default function Update({ user, setUser }) {
             </h2>
 
             <NaverForm user={formUser} disabled={loading} setUser={setFormUser} onSave={onClick} />
+
+            <NaverConfirmation
+                open={confirmationOpen}
+                onClose={onCloseConfirmation}
+                title="Naver atualizado"
+                text="Naver atualizado com sucesso!"
+            />
         </div>
     )
 }

@@ -2,9 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Modal from 'react-modal'
 import styled, { css } from 'styled-components'
-import Button from '../Button'
 import Flex from '../Flex'
-import NaverConfirmation from '../NaverConfirmation'
 
 const customStyles = {
     content: {
@@ -47,17 +45,7 @@ const Title = styled.span`
     color: #000000;
 `
 
-const Right = styled.div`
-    align-self: flex-end;
-`
-
-export default function DeleteDialog({
-    onClose,
-    open,
-    confirmationOpen,
-    onDelete,
-    onCloseConfirmation,
-}) {
+export default function NaverConfirmation({ title, text, onClose, open }) {
     return (
         <Modal
             isOpen={open}
@@ -66,33 +54,17 @@ export default function DeleteDialog({
             style={customStyles}
         >
             <Flex column>
-                <Title>Excluir Naver</Title>
+                <Title>{title}</Title>
 
-                <Text>Tem certeza que deseja excluir este Naver?</Text>
-
-                <Right>
-                    <Button border padding="0.4em 5em" onClick={onClose}>
-                        Cancelar
-                    </Button>
-
-                    <Button primary padding="0.4em 5em" onClick={onDelete}>
-                        Excluir
-                    </Button>
-
-                    <NaverConfirmation
-                        open={confirmationOpen}
-                        onClose={onCloseConfirmation}
-                        title="Naver excluído"
-                        text="Naver excluído com sucesso!"
-                    />
-                </Right>
+                <Text>{text}</Text>
             </Flex>
         </Modal>
     )
 }
 
-DeleteDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
+NaverConfirmation.propTypes = {
     open: PropTypes.bool.isRequired,
-    onDelete: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 }
