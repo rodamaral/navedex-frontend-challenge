@@ -1,3 +1,11 @@
+## Dificuldades
+
+-   evitar ao máximo utilizar componentes de terceiros (Material-UI);
+-   aprender o styled-componentes, que eu não havia utilizado até então;
+-   construir a estrutura e rotas sem usar o Redux;
+
+# CRA
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
