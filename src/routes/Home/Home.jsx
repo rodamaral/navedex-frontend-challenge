@@ -5,6 +5,7 @@ import Button from '../../components/Button'
 import UsersList from '../../components/UsersList'
 import AuthContext from '../../contexts/AuthContext'
 import axios from '../../services/axios'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 const Section = styled.section`
     display: flex;
@@ -14,6 +15,12 @@ const Section = styled.section`
     width: 100%;
     margin: 20px;
 `
+
+const transformData = (data) => ({
+    ...data,
+    birthdate: data.birthdate.substring(0, 10),
+    admission_date: data.admission_date.substring(0, 10),
+})
 
 export default function Home({ user, setUser }) {
     const [users, setUsers] = useState([])
@@ -27,7 +34,8 @@ export default function Home({ user, setUser }) {
             const res = await axios.get('navers', {
                 headers: { Authorization: `Bearer ${token}` },
             })
-            setUsers(res.data)
+
+            setUsers(res.data.map(transformData))
         } catch (error) {
             console.error(error)
         } finally {
@@ -55,7 +63,10 @@ export default function Home({ user, setUser }) {
 
             <div>
                 {loading ? (
-                    <div>loading</div>
+                    <>
+                        <LinearProgress />
+                        <div>Carregando...</div>
+                    </>
                 ) : (
                     <UsersList user={user} setUser={setUser} users={users} getUsers={getUsers} />
                 )}

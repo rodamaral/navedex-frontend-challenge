@@ -21,8 +21,8 @@ export default function Update({ user, setUser }) {
                 `navers/${user.id}`,
                 {
                     job_role: formUser.job_role,
-                    admission_date: formUser.admission_date,
-                    birthdate: formUser.birthdate,
+                    admission_date: formUser.admission_date.replaceAll('-', '/'),
+                    birthdate: formUser.birthdate.replaceAll('-', '/'),
                     name: formUser.name,
                     project: formUser.project,
                     url: formUser.url,

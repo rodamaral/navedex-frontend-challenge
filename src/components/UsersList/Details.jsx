@@ -53,7 +53,7 @@ const Title = styled.span`
     color: #000000;
 `
 
-export default function Details({ user, getUsers }) {
+export default function Details({ user, setUser, getUsers }) {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
@@ -81,7 +81,12 @@ export default function Details({ user, getUsers }) {
                 <Text marginBottom={10}>{user.project}</Text>
 
                 <span style={{ marginTop: 'auto' }}>
-                    <DeleteUser id={user.id} setLoading={setLoading} getUsers={getUsers} />
+                    <DeleteUser
+                        id={user.id}
+                        setLoading={setLoading}
+                        getUsers={getUsers}
+                        setUser={setUser}
+                    />
 
                     <IconButton aria-label="edit" onClick={onEdit}>
                         <EditIcon />
@@ -104,4 +109,5 @@ Details.propTypes = {
         url: PropTypes.string,
     }),
     getUsers: PropTypes.func.isRequired,
+    setUser: PropTypes.func.isRequired,
 }

@@ -5,7 +5,7 @@ import AuthContext from '../../contexts/AuthContext'
 import axios from '../../services/axios'
 import DeleteDialog from './DeleteDialog'
 
-export default function DeleteUser({ id, setLoading, getUsers }) {
+export default function DeleteUser({ id, setLoading, getUsers, setUser }) {
     const [open, setOpen] = useState(false)
     const { token } = useContext(AuthContext)
 
@@ -24,12 +24,13 @@ export default function DeleteUser({ id, setLoading, getUsers }) {
             await axios.delete(`navers/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
-        } catch (error) {
-            console.error(error)
-        } finally {
             setLoading(false)
             setOpen(false)
+            setUser(null)
             getUsers()
+        } catch (error) {
+            setLoading(false)
+            console.error(error)
         }
     }
 

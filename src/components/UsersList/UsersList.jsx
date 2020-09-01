@@ -35,7 +35,13 @@ export default function UserList({ user, setUser, users, getUsers }) {
     return (
         <Row>
             {users.map((user) => (
-                <User key={user.id} user={user} onSelected={onSelected} getUsers={getUsers} />
+                <User
+                    key={user.id}
+                    user={user}
+                    onSelected={onSelected}
+                    getUsers={getUsers}
+                    setUser={setUser}
+                />
             ))}
 
             <Modal
@@ -44,7 +50,7 @@ export default function UserList({ user, setUser, users, getUsers }) {
                 onRequestClose={onClose}
                 style={customStyles}
             >
-                {user != null && <Details user={user} getUsers={getUsers} />}
+                {user != null && <Details user={user} setUser={setUser} getUsers={getUsers} />}
             </Modal>
         </Row>
     )

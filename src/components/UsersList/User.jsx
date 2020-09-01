@@ -29,7 +29,7 @@ const Text = styled.span`
         `};
 `
 
-export default function User({ user, getUsers, onSelected }) {
+export default function User({ user, getUsers, setUser, onSelected }) {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
@@ -59,7 +59,12 @@ export default function User({ user, getUsers, onSelected }) {
             <Text>{user.job_role}</Text>
 
             <span>
-                <DeleteUser id={user.id} setLoading={setLoading} getUsers={getUsers} />
+                <DeleteUser
+                    id={user.id}
+                    setLoading={setLoading}
+                    getUsers={getUsers}
+                    setUser={setUser}
+                />
 
                 <IconButton aria-label="edit" onClick={onEdit}>
                     <EditIcon />

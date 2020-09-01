@@ -17,6 +17,10 @@ const Dual = styled.div`
     flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: stretch;
+
+    & > * {
+        flex-grow: 1;
+    }
 `
 
 export default function NaverForm({ user, disabled, setUser, onSave }) {
@@ -43,7 +47,7 @@ export default function NaverForm({ user, disabled, setUser, onSave }) {
                     <Dual>
                         <Label
                             label="Idade"
-                            type="text"
+                            type="date"
                             value={user.birthdate}
                             name="birthdate"
                             onChange={onChange}
@@ -51,6 +55,7 @@ export default function NaverForm({ user, disabled, setUser, onSave }) {
 
                         <Label
                             label="Tempo de empresa"
+                            type="date"
                             value={user.admission_date}
                             name="admission_date"
                             onChange={onChange}

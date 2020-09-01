@@ -4,6 +4,7 @@ import NaverForm from '../../components/NaverForm'
 import AuthContext from '../../contexts/AuthContext'
 import axios from '../../services/axios'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import { useHistory } from 'react-router-dom'
 
 export default function Insert() {
     const [loading, setLoading] = useState(false)
@@ -16,6 +17,7 @@ export default function Insert() {
         url: '',
     })
     const { token } = useContext(AuthContext)
+    const history = useHistory()
 
     const onClick = async (event) => {
         event.preventDefault()
@@ -26,8 +28,8 @@ export default function Insert() {
                 `navers`,
                 {
                     job_role: user.job_role,
-                    admission_date: user.admission_date,
-                    birthdate: user.birthdate,
+                    admission_date: user.admission_date.replaceAll('-', '/'),
+                    birthdate: user.birthdate.replaceAll('-', '/'),
                     name: user.name,
                     project: user.project,
                     url: user.url,
@@ -43,12 +45,17 @@ export default function Insert() {
         }
     }
 
+    const onReturn = () => {
+        setUser(null)
+        history.push('/home')
+    }
+
     return (
         <div>
             {loading && <LinearProgress />}
 
             <h2>
-                <ArrowBackIosIcon /> Adicionar Naver
+                <ArrowBackIosIcon onClick={onReturn} /> Adicionar Naver
             </h2>
 
             <NaverForm user={user} disabled={loading} setUser={setUser} onSave={onClick} />
