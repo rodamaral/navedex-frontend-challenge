@@ -1,8 +1,17 @@
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import DeleteUser from './DeleteUser'
-import EditUser from './EditUser'
+
+const Img = styled.img`
+    max-width: max(400px, 60%);
+    height: 100%;
+    object-fit: contain;
+    object-position: left;
+`
 
 const Row = styled.div`
     display: flex;
@@ -45,19 +54,15 @@ const Title = styled.span`
 
 export default function Details({ user, getUsers }) {
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
+
+    const onEdit = () => {
+        history.push('/update')
+    }
 
     return (
         <Row>
-            <img
-                src={user.url}
-                alt="Imagem do usuário"
-                style={{
-                    maxWidth: 'max(400px, 60%)',
-                    height: '100%',
-                    objectFit: 'contain',
-                    objectPosition: 'left',
-                }}
-            />
+            <Img src={user.url} alt="Imagem do usuário" />
 
             <Column>
                 <Title>{user.name}</Title>
@@ -75,12 +80,9 @@ export default function Details({ user, getUsers }) {
                 <span style={{ marginTop: 'auto' }}>
                     <DeleteUser id={user.id} setLoading={setLoading} getUsers={getUsers} />
 
-                    <EditUser
-                        id={user.id}
-                        user={user}
-                        setLoading={setLoading}
-                        getUsers={getUsers}
-                    />
+                    <IconButton aria-label="edit" onClick={onEdit}>
+                        <EditIcon />
+                    </IconButton>
                 </span>
             </Column>
         </Row>

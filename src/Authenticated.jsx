@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import Header from './components/Header'
 import Home from './routes/Home'
 import Insert from './routes/Insert'
+import Update from './routes/Update'
 
 const Page = styled.div`
     display: flex;
@@ -18,24 +19,31 @@ const Section = styled.section`
     align-items: center;
 `
 
-const Authenticated = () => (
-    <Page>
-        <Header />
+const Authenticated = () => {
+    const [user, setUser] = useState(null)
 
-        <Section>
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/home">
-                        <Home />
-                    </Route>
-                    <Route path="/insert">
-                        <Insert />
-                    </Route>
-                    <Redirect to="/home" />
-                </Switch>
-            </BrowserRouter>
-        </Section>
-    </Page>
-)
+    return (
+        <Page>
+            <Header />
+
+            <Section>
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/home">
+                            <Home user={user} setUser={setUser} />
+                        </Route>
+                        <Route path="/insert">
+                            <Insert />
+                        </Route>
+                        <Route path="/update">
+                            <Update user={user} setUser={setUser} />
+                        </Route>
+                        <Redirect to="/home" />
+                    </Switch>
+                </BrowserRouter>
+            </Section>
+        </Page>
+    )
+}
 
 export default Authenticated

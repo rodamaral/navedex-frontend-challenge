@@ -15,7 +15,7 @@ const Section = styled.section`
     margin: 20px;
 `
 
-export default function Home() {
+export default function Home({ user, setUser }) {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
     const { token } = useContext(AuthContext)
@@ -54,7 +54,11 @@ export default function Home() {
             </Section>
 
             <div>
-                {loading ? <div>loading</div> : <UsersList users={users} getUsers={getUsers} />}
+                {loading ? (
+                    <div>loading</div>
+                ) : (
+                    <UsersList user={user} setUser={setUser} users={users} getUsers={getUsers} />
+                )}
             </div>
         </>
     )

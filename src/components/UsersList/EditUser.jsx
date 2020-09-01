@@ -5,7 +5,7 @@ import axios from '../../services/axios'
 import AuthContext from '../../contexts/AuthContext'
 import EditDialog from './EditDialog'
 
-export default function EditUser({ user: userProps, id, setLoading, getUsers }) {
+function EditUser({ user: userProps, id, setLoading, getUsers }) {
     const [open, setOpen] = useState(false)
     const [user, setUser] = useState(userProps)
     const { token } = useContext(AuthContext)

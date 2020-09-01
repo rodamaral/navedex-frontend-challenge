@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react'
-import User from './User'
+import React, { useCallback } from 'react'
 import Modal from 'react-modal'
 import styled from 'styled-components'
 import Details from './Details'
+import User from './User'
 
 const Row = styled.div`
     display: flex;
@@ -23,16 +23,14 @@ const customStyles = {
     },
 }
 
-export default function Home({ users, getUsers }) {
-    const [selected, setSelected] = useState(null)
-
+export default function UserList({ user, setUser, users, getUsers }) {
     const onSelected = (user) => {
-        setSelected(user)
+        setUser(user)
     }
 
     const onClose = useCallback(() => {
-        setSelected(null)
-    }, [])
+        setUser(null)
+    }, [setUser])
 
     return (
         <Row>
@@ -41,12 +39,12 @@ export default function Home({ users, getUsers }) {
             ))}
 
             <Modal
-                isOpen={selected != null}
+                isOpen={user != null}
                 appElement={document.getElementById('root')}
                 onRequestClose={onClose}
                 style={customStyles}
             >
-                {selected != null && <Details user={selected} getUsers={getUsers} />}
+                {user != null && <Details user={user} getUsers={getUsers} />}
             </Modal>
         </Row>
     )

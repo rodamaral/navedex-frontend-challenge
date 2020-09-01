@@ -1,8 +1,10 @@
+import IconButton from '@material-ui/core/IconButton'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import EditIcon from '@material-ui/icons/Edit'
 import React, { useState } from 'react'
-import DeleteUser from './DeleteUser'
-import EditUser from './EditUser'
+import { useHistory } from 'react-router-dom'
 import styled, { css } from 'styled-components'
+import DeleteUser from './DeleteUser'
 
 const Card = styled.div`
     display: flex;
@@ -27,12 +29,18 @@ const Text = styled.span`
         `};
 `
 
-// FIXME: image
 export default function User({ user, getUsers, onSelected }) {
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
     const onClick = () => {
         onSelected(user)
+    }
+
+    const onEdit = () => {
+        onSelected(user)
+        console.log('update')
+        history.push('/update')
     }
 
     return (
@@ -53,7 +61,9 @@ export default function User({ user, getUsers, onSelected }) {
             <span>
                 <DeleteUser id={user.id} setLoading={setLoading} getUsers={getUsers} />
 
-                <EditUser id={user.id} user={user} setLoading={setLoading} getUsers={getUsers} />
+                <IconButton aria-label="edit" onClick={onEdit}>
+                    <EditIcon />
+                </IconButton>
             </span>
         </Card>
     )
