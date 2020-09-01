@@ -34,15 +34,19 @@ export default function UserList({ user, setUser, users, getUsers }) {
 
     return (
         <Row>
-            {users.map((user) => (
-                <User
-                    key={user.id}
-                    user={user}
-                    onSelected={onSelected}
-                    getUsers={getUsers}
-                    setUser={setUser}
-                />
-            ))}
+            {users.length !== 0 ? (
+                users.map((user) => (
+                    <User
+                        key={user.id}
+                        user={user}
+                        onSelected={onSelected}
+                        getUsers={getUsers}
+                        setUser={setUser}
+                    />
+                ))
+            ) : (
+                <div>Não há navers registrados!</div>
+            )}
 
             <Modal
                 isOpen={user != null}
